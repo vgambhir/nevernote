@@ -3,8 +3,11 @@ package com.nevernote.data;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import com.nevernote.domain.Notebook;
 
+@Repository
 public class DataStore {
 
 	private Map<Long, Notebook> bookMap = new HashMap<Long, Notebook>();
