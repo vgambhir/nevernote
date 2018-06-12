@@ -24,9 +24,6 @@ import com.nevernote.service.NotebookService;
 @RequestMapping("notebooks")
 public class NotebookController {
 
-	
-	
-
 	@Autowired
 	private NotebookService noteBookSvc;
 
@@ -60,8 +57,7 @@ public class NotebookController {
 
 	}
 
-	@DeleteMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> deleteNoteBook(@PathVariable("id") Long id) {
 
 		LOG.info("Deleting notebook with id: {}", id);
