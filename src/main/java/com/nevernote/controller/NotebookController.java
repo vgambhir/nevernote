@@ -21,8 +21,11 @@ import com.nevernote.model.NotebookForm;
 import com.nevernote.service.NotebookService;
 
 @RestController
-@RequestMapping("api/notebooks")
+@RequestMapping("notebooks")
 public class NotebookController {
+
+	
+	
 
 	@Autowired
 	private NotebookService noteBookSvc;
@@ -37,7 +40,7 @@ public class NotebookController {
 		NotebookDetail book = noteBookSvc.create(notebook);
 		// set id in location
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("api/notebooks/{id}").buildAndExpand(book.getId()).toUri());
+		headers.setLocation(ucBuilder.path("/notebooks/{id}").buildAndExpand(book.getId()).toUri());
 		return new ResponseEntity<NotebookDetail>(book, headers, HttpStatus.CREATED);
 
 	}

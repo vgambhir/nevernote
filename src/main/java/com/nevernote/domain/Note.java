@@ -10,9 +10,6 @@ public class Note {
 	private Long lastModifiedDate;
 
 	
-	
-	
-	
 	public Long getId() {
 		return id;
 	}

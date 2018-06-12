@@ -30,6 +30,7 @@ public class NotebookDetail {
 		this.notes = notes;
 	}
 	
+	public NotebookDetail() {}
 	public NotebookDetail(Long id, String name, List<Note> notes) {
 		super();
 		this.id = id;

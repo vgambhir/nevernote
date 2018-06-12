@@ -24,7 +24,7 @@ import com.nevernote.model.NoteForm;
 import com.nevernote.service.NotebookService;
 
 @RestController
-@RequestMapping("api/notebooks")
+@RequestMapping("notebooks")
 public class NoteController {
 
 	@Autowired

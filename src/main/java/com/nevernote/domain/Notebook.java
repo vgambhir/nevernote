@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class Notebook {
 
@@ -43,32 +42,30 @@ public class Notebook {
 			return;
 
 		for (String tag : tagArr) {
-			String tagData = tag.trim();
-			if (!tagMap.containsKey(tagData)) {
-				List<Note> list = new ArrayList<Note>();
-				list.add(note);
-				tagMap.put(tagData, list);
-			} else {
-				List<Note> list = tagMap.get(tagData);
-				list.add(note);
+			tag = tag.trim().toLowerCase();
+			List<Note> list = tagMap.get(tag);
+			if (list == null) {
+				list = new ArrayList<Note>();
+				tagMap.put(tag, list);
 			}
+
+			list.add(note);
 
 		}
 
 	}
 
 	public List<Note> findNotesWithTag(String tag) {
-		return tagMap.get(tag);
+		return tagMap.get(tag.trim().toLowerCase());
 
 	}
 
 	public void updateNote(Note note) {
-
 		deleteNote(note.getId());
 		addNote(note);
 	}
 
-	public List<Note> searchNote(String tag) {
+	public List<Note> searchNotesByTag(String tag) {
 
 		return tagMap.get(tag);
 
@@ -82,19 +79,18 @@ public class Notebook {
 	public void deleteNote(Long id) {
 		Note delNote = noteMap.remove(id);
 		// remove from list of associated tags
-		String[] tagArr = delNote.getTags();
-		if (tagArr == null)
-			return;
-
-		removeFomMappedTag(delNote);
+		removeFromMappedTag(delNote);
 
 	}
 
-	private void removeFomMappedTag(Note note) {
-		Set<String> tagSet = tagMap.keySet();
-		for (String tag : tagSet) {
-			List<Note> noteList = tagMap.get(tag);
-			noteList.remove(note);
+	private void removeFromMappedTag(Note note) {
+		String[] tagArr = note.getTags();
+		if (tagArr != null) {
+			for (String tag : tagArr) {
+				List<Note> noteList = tagMap.get(tag);
+				noteList.remove(note);
+			}
+
 		}
 
 	}

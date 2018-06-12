@@ -1,47 +1,48 @@
-curl -X POST http://localhost:8080/api/notebooks -d {"name":"Sai"}
+curl -X POST http://localhost:8080/apis/notebooks -d {"name":"Sai"}
 
 
 Create
-curl -H "Content-Type: application/json" -X POST http://localhost:8080/api/notebooks -d '{"name":"Sai1"}'
+=========
+curl -H "Content-Type: application/json" -X POST http://localhost:8080/apis/notebooks -d '{"name":"Sai1"}'
 
 Create
 ===========
-curl -i -H "Content-Type: application/json" -X POST http://localhost:8080/api/notebooks -d '{"name":"Sai2"}'
+curl -i -H "Content-Type: application/json" -X POST http://localhost:8080/apis/notebooks -d '{"name":"Sai2"}'
 
 Get
 ========
-curl -i -H "Content-Type: application/json" -X GET http://localhost:8080/api/notebooks/1
+curl -i -H "Content-Type: application/json" -X GET http://localhost:8080/apis/notebooks/1
 
 
 DELETE
 ========
-curl -i -H "Content-Type: application/json" -X DELETE http://localhost:8080/api/notebooks/1
+curl -i -H "Content-Type: application/json" -X DELETE http://localhost:8080/apis/notebooks/1
 
 
 Add Note
 ==========
-curl -i -H "Content-Type: application/json" -X POST http://localhost:8080/api/notebooks/1/notes -d '{"title":"Note1","body":"This is a note1","tags":["a","b","c","d"]}'
+curl -i -H "Content-Type: application/json" -X POST http://localhost:8080/apis/notebooks/1/notes -d '{"title":"Note1","body":"This is a note1","tags":["a","b","c","d"]}'
 
 
-curl -i -H "Content-Type: application/json" -X POST http://localhost:8080/api/notebooks/1/notes -d '{"title":"Note2","body":"This is a note2","tags":["A","A","c","d"]}'
+curl -i -H "Content-Type: application/json" -X POST http://localhost:8080/apis/notebooks/1/notes -d '{"title":"Note2","body":"This is a note2","tags":["A","A","c","d"]}'
 
 
 
 GetNote
 ===========
-curl -i -H "Content-Type: application/json" -X GET http://localhost:8080/api/notebooks/1/notes/3 
+curl -i -H "Content-Type: application/json" -X GET http://localhost:8080/apis/notebooks/1/notes/3 
 
 
 DeleteNote
 =============
-curl -i -H "Content-Type: application/json" -X DELETE http://localhost:8080/api/notebooks/1/notes/1
+curl -i -H "Content-Type: application/json" -X DELETE http://localhost:8080/apis/notebooks/1/notes/1
 
 
 Update Note
 ==================
-curl -i -H "Content-Type: application/json" -X POST http://localhost:8080/api/notebooks/1/notes/2 -d '{"title":"XXXX","body":"XXThis is a note1","tags":["a","b","f","g"]}'
+curl -i -H "Content-Type: application/json" -X POST http://localhost:8080/apis/notebooks/1/notes/2 -d '{"title":"XXXX","body":"XXThis is a note1","tags":["a","b","f","g"]}'
 
 
 Find Notes By Tag
 ===============
-curl -i -H "Content-Type: application/json" -X GET http://localhost:8080/api/notebooks/1/notes?tag=a
+curl -i -H "Content-Type: application/json" -X GET http://localhost:8080/apis/notebooks/1/notes?tag=a
