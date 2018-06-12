@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 public class Notebook {
 
 	private Long id;
@@ -15,9 +14,6 @@ public class Notebook {
 	private Map<Long, Note> noteMap = new HashMap<Long, Note>();
 	private Map<String, List<Note>> tagMap = new HashMap<String, List<Note>>();
 
-	
-	
-	
 	public Notebook(Long id, String name) {
 		super();
 		this.id = id;
@@ -61,6 +57,11 @@ public class Notebook {
 
 	}
 
+	public List<Note> findNotesWithTag(String tag) {
+		return tagMap.get(tag);
+
+	}
+
 	public void updateNote(Note note) {
 
 		deleteNote(note.getId());
@@ -95,6 +96,11 @@ public class Notebook {
 			List<Note> noteList = tagMap.get(tag);
 			noteList.remove(note);
 		}
+
+	}
+
+	public Note getNoteById(Long noteId) {
+		return noteMap.get(noteId);
 
 	}
 

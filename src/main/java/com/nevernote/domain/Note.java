@@ -86,4 +86,16 @@ public class Note {
 		return true;
 	}
 
+	public Note(Long id, String title, String body, String[] tags, Long createdDate, Long lastModifiedDate) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.body = body;
+		this.tags = tags;
+		this.createdDate = createdDate;
+		this.lastModifiedDate = lastModifiedDate;
+	}
+	
+	
+
 }
