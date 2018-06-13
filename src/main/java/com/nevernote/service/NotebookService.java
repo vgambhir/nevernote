@@ -2,6 +2,7 @@ package com.nevernote.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +16,10 @@ import com.nevernote.model.NoteForm;
 import com.nevernote.model.NotebookDetail;
 import com.nevernote.model.NotebookForm;
 import com.nevernote.store.DataStore;
+
 /**
- * Provides service layer 
+ * Provides service layer
+ * 
  * @author vandana
  *
  */
@@ -139,18 +142,18 @@ public class NotebookService {
 			return null;
 		}
 
-		List<Note> noteList = book.findNotesWithTag(tag);
+		Set<Note> noteSet = book.findNotesWithTag(tag);
 
-		if (noteList == null)
+		if (noteSet == null)
 			return new ArrayList<NoteDetail>();
 
-		return mapToNoteDetail(noteList);
+		return mapToNoteDetail(noteSet);
 
 	}
 
-	private List<NoteDetail> mapToNoteDetail(List<Note> noteList) {
+	private List<NoteDetail> mapToNoteDetail(Set<Note> noteSet) {
 		List<NoteDetail> nDetailList = new ArrayList<NoteDetail>();
-		for (Note n : noteList) {
+		for (Note n : noteSet) {
 			nDetailList.add(new NoteDetail(n));
 		}
 		return nDetailList;

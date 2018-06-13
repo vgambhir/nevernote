@@ -2,9 +2,11 @@ package com.nevernote.domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class Notebook {
 
@@ -12,7 +14,7 @@ public class Notebook {
 	private String name;
 
 	private Map<Long, Note> noteMap = new HashMap<Long, Note>();
-	private Map<String, List<Note>> tagMap = new HashMap<String, List<Note>>();
+	private Map<String, Set<Note>> tagMap = new HashMap<String, Set<Note>>();
 
 	public Notebook(Long id, String name) {
 		this.id = id;
@@ -43,17 +45,17 @@ public class Notebook {
 
 		for (String tag : tagArr) {
 			tag = tag.trim().toLowerCase();
-			List<Note> list = tagMap.get(tag);
-			if (list == null) {
-				list = new ArrayList<Note>();
-				tagMap.put(tag, list);
+			Set<Note> set = tagMap.get(tag);
+			if (set == null) {
+				set = new HashSet<Note>();
+				tagMap.put(tag, set);
 			}
 
-			list.add(note);
+			set.add(note);
 		}
 	}
 
-	public List<Note> findNotesWithTag(String tag) {
+	public Set<Note> findNotesWithTag(String tag) {
 		return tagMap.get(tag.trim().toLowerCase());
 	}
 
@@ -62,7 +64,7 @@ public class Notebook {
 		addNote(note);
 	}
 
-	public List<Note> searchNotesByTag(String tag) {
+	public Set<Note> searchNotesByTag(String tag) {
 		return tagMap.get(tag);
 	}
 
