@@ -56,11 +56,12 @@ java -jar nevernote-0.0.1-SNAPSHOT.jar
 ### Exceptions
 When getting try to fetch a non-existing resource 
 
-Request:
+- Request:
 GET http://localhost:8080/apis/notebooks/4
 
-Response:
+- Response:
 HTTP/1.1 404 
+
 {"eventDate":"06/13/2018 13:07:29","message":"No Notebook found with id = 4","details":"uri=/apis/notebooks/4"}
 
 
