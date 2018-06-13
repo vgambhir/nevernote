@@ -1,12 +1,14 @@
 package com.nevernote.model;
 
+import java.util.List;
+
 import com.nevernote.domain.Note;
 
 public class NoteDetail {
 
 	private Long id;
 
-	public NoteDetail(Long id, String title, String body, String[] tags, long createDate, long lastModifiedDate) {
+	public NoteDetail(Long id, String title, String body, List<String> tags, long createDate, long lastModifiedDate) {
 		this.id = id;
 		this.title = title;
 		this.body = body;
@@ -29,7 +31,7 @@ public class NoteDetail {
 
 	private String title;
 	private String body;
-	private String[] tags;
+	private List<String> tags;
 	private long createDate;
 	private long lastModifiedDate;
 
@@ -57,11 +59,11 @@ public class NoteDetail {
 		this.body = body;
 	}
 
-	public String[] getTags() {
+	public List<String> getTags() {
 		return tags;
 	}
 
-	public void setTags(String[] tags) {
+	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}
 

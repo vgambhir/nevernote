@@ -1,5 +1,6 @@
 package com.nevernote.domain;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Note {
@@ -7,17 +8,20 @@ public class Note {
 	private Long id;
 	private String title;
 	private String body;
-	private String[] tags;
+	private List<String> tags;
 	private Long createdDate;
 	private Long lastModifiedDate;
 
-	public Note(Long id, String title, String body, String[] tags, Long createdDate, Long lastModifiedDate) {
+	public Note(Long id, String title, String body, List<String> tags, Long createdDate, Long lastModifiedDate) {
 		this.id = id;
 		this.title = title;
 		this.body = body;
 		this.tags = tags;
 		this.createdDate = createdDate;
 		this.lastModifiedDate = lastModifiedDate;
+	}
+
+	public Note() {
 	}
 
 	public Long getId() {
@@ -44,11 +48,11 @@ public class Note {
 		this.body = body;
 	}
 
-	public String[] getTags() {
+	public List<String> getTags() {
 		return tags;
 	}
 
-	public void setTags(String[] tags) {
+	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}
 

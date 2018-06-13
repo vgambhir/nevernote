@@ -1,7 +1,6 @@
 package com.nevernote.service;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -131,7 +130,7 @@ public class NotebookService {
 		return new NoteDetail(newNote);
 	}
 
-	public List<NoteDetail> findNotesWith(Long notebookId, String tag) {
+	public NotebookDetail findNotesWith(Long notebookId, String tag) {
 
 		Notebook book = dataStore.findbyId(notebookId);
 		if (book == null) {
@@ -142,18 +141,9 @@ public class NotebookService {
 		Set<Note> noteSet = book.findNotesWithTag(tag);
 
 		if (noteSet == null)
-			return new ArrayList<NoteDetail>();
+			return new NotebookDetail(book.getId(), book.getName(), new ArrayList<Note>());
 
-		return mapToNoteDetail(noteSet);
-
-	}
-
-	private List<NoteDetail> mapToNoteDetail(Set<Note> noteSet) {
-		List<NoteDetail> nDetailList = new ArrayList<NoteDetail>();
-		for (Note n : noteSet) {
-			nDetailList.add(new NoteDetail(n));
-		}
-		return nDetailList;
+		return new NotebookDetail(book.getId(), book.getName(), new ArrayList<Note>(noteSet));
 
 	}
 

@@ -1,26 +1,28 @@
 package com.nevernote.model;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class NoteForm {
 
 	private String title;
 	private String body;
-	private String[] tags;
+	private List<String> tags;
 
 	public NoteForm() {
 	}
 
-	public NoteForm(String title, String body, String[] tags) {
+	public NoteForm(String title, String body, List<String> tags) {
 		super();
 		this.title = title;
 		this.body = body;
 		this.tags = tags;
 	}
 
+	
+
 	@Override
 	public String toString() {
-		return "NoteForm [title=" + title + ", body=" + body + ", tags=" + Arrays.toString(tags) + "]";
+		return "NoteForm [title=" + title + ", body=" + body + ", tags=" + tags + "]";
 	}
 
 	public String getTitle() {
@@ -39,11 +41,11 @@ public class NoteForm {
 		this.body = body;
 	}
 
-	public String[] getTags() {
+	public List<String> getTags() {
 		return tags;
 	}
 
-	public void setTags(String[] tags) {
+	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}
 

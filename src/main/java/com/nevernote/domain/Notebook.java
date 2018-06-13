@@ -39,11 +39,11 @@ public class Notebook {
 
 	public void addNote(Note note) {
 		noteMap.put(note.getId(), note);
-		String[] tagArr = note.getTags();
-		if (tagArr == null)
+		List<String> tagList = note.getTags();
+		if (tagList == null)
 			return;
 
-		for (String tag : tagArr) {
+		for (String tag : tagList) {
 			tag = tag.trim().toLowerCase();
 			Set<Note> set = tagMap.get(tag);
 			if (set == null) {
@@ -81,9 +81,9 @@ public class Notebook {
 	}
 
 	private void removeFromMappedTag(Note note) {
-		String[] tagArr = note.getTags();
-		if (tagArr != null) {
-			for (String tag : tagArr) {
+		List<String> tagList = note.getTags();
+		if (tagList != null) {
+			for (String tag : tagList) {
 				tagMap.get(tag).remove(note);
 			}
 		}

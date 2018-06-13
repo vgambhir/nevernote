@@ -1,7 +1,5 @@
 package com.nevernote.controller;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.nevernote.model.NoteDetail;
 import com.nevernote.model.NoteForm;
+import com.nevernote.model.NotebookDetail;
 import com.nevernote.service.NotebookService;
 
 @RestController
@@ -91,17 +90,15 @@ public class NoteController {
 	}
 
 	@GetMapping(value = "/{notebookId}/notes", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<List<NoteDetail>> getNotesWithTags(@PathVariable("notebookId") Long notebookId,
+	public ResponseEntity<NotebookDetail> getNotesWithTags(@PathVariable("notebookId") Long notebookId,
 			@RequestParam("tag") String tag) {
 
-		List<NoteDetail> noteList = noteBookSvc.findNotesWith(notebookId, tag);
-		if (noteList == null) {
+		NotebookDetail notebookDetail = noteBookSvc.findNotesWith(notebookId, tag);
+		if (notebookDetail == null) {
 			LOG.info("Unable to get Notebook with id {}    ", notebookId);
-			return new ResponseEntity<List<NoteDetail>>(HttpStatus.NOT_FOUND);
-		} else if (noteList.isEmpty())
-			return new ResponseEntity<List<NoteDetail>>(HttpStatus.NO_CONTENT);
-		else
-			return new ResponseEntity<List<NoteDetail>>(noteList, HttpStatus.OK);
+			return new ResponseEntity<NotebookDetail>(HttpStatus.NOT_FOUND);
+		} else
+			return new ResponseEntity<NotebookDetail>(notebookDetail, HttpStatus.OK);
 
 	}
 
