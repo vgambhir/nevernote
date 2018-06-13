@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class IdGenerator {
-	private final AtomicLong counter = new AtomicLong();
+	private final AtomicLong counter = new AtomicLong(0L);
 
 	public Long getNext() {
 		return counter.incrementAndGet();

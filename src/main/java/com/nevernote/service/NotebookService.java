@@ -54,7 +54,6 @@ public class NotebookService {
 
 	public void deleteById(Long id) {
 		dataStore.deleteById(id);
-
 	}
 
 	public NoteDetail addNote(Long notebookId, NoteForm noteForm) {
@@ -101,7 +100,6 @@ public class NotebookService {
 			return null;
 		}
 		book.deleteNote(noteId);
-
 		return new NoteDetail(note);
 	}
 
@@ -130,7 +128,6 @@ public class NotebookService {
 		Note newNote = new Note(noteId, noteForm.getTitle(), noteForm.getBody(), noteForm.getTags(),
 				currNote.getCreatedDate(), System.currentTimeMillis());
 		book.updateNote(newNote);
-
 		return new NoteDetail(newNote);
 	}
 
