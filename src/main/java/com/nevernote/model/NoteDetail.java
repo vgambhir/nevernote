@@ -4,9 +4,23 @@ import java.util.List;
 
 import com.nevernote.domain.Note;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class NoteDetail {
 
 	private Long id;
+	private String title;
+	private String body;
+	private List<String> tags;
+	private long createDate;
+	private long lastModifiedDate;
 
 	public NoteDetail(Long id, String title, String body, List<String> tags, long createDate, long lastModifiedDate) {
 		this.id = id;
@@ -24,63 +38,6 @@ public class NoteDetail {
 		this.tags = note.getTags();
 		this.createDate = note.getCreatedDate();
 		this.lastModifiedDate = note.getLastModifiedDate();
-	}
-
-	public NoteDetail() {
-	}
-
-	private String title;
-	private String body;
-	private List<String> tags;
-	private long createDate;
-	private long lastModifiedDate;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getBody() {
-		return body;
-	}
-
-	public void setBody(String body) {
-		this.body = body;
-	}
-
-	public List<String> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<String> tags) {
-		this.tags = tags;
-	}
-
-	public long getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(long createDate) {
-		this.createDate = createDate;
-	}
-
-	public long getLastModifiedDate() {
-		return lastModifiedDate;
-	}
-
-	public void setLastModifiedDate(long lastModifiedDate) {
-		this.lastModifiedDate = lastModifiedDate;
 	}
 
 }

@@ -40,11 +40,6 @@ public class NoteController {
 
 		// find notebook exists or not find by notebook id
 		NoteDetail noteDetail = noteBookSvc.addNote(notebookId, noteForm);
-		if (noteDetail == null) {
-			LOG.info("Unable to create. Notebook with id {} not found", notebookId);
-			return new ResponseEntity<NoteDetail>(HttpStatus.NOT_FOUND);
-		}
-
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/notebook/{notebookId}/notes/{id}")
 				.buildAndExpand(notebookId, noteDetail.getId()).toUri());

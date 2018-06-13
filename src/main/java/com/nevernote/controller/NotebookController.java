@@ -21,8 +21,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.nevernote.model.NotebookDetail;
 import com.nevernote.model.NotebookForm;
 import com.nevernote.service.NotebookService;
+
 /**
  * Controller to handle notebooks resource
+ * 
  * @author vandana
  *
  */
@@ -39,7 +41,6 @@ public class NotebookController {
 	public ResponseEntity<NotebookDetail> createNoteBook(@RequestBody @NotNull NotebookForm notebook,
 			UriComponentsBuilder ucBuilder) {
 		LOG.info("Creating new notebook: {}", notebook);
-
 		NotebookDetail book = noteBookSvc.create(notebook);
 		// set id in location
 		HttpHeaders headers = new HttpHeaders();
@@ -51,29 +52,17 @@ public class NotebookController {
 	@GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<NotebookDetail> getNoteBook(@PathVariable("id") Long id) {
 		LOG.info("Getting notebook with id: {}", id);
-
 		NotebookDetail book = noteBookSvc.findById(id);
-
-		if (book == null) {
-			LOG.info("Notebook with id {} not found", id);
-			return new ResponseEntity<NotebookDetail>(HttpStatus.NOT_FOUND);
-		}
-
 		return new ResponseEntity<NotebookDetail>(book, HttpStatus.OK);
 
 	}
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> deleteNoteBook(@PathVariable("id") Long id) {
-
 		LOG.info("Deleting notebook with id: {}", id);
-		NotebookDetail book = noteBookSvc.findById(id);
-		if (book == null) {
-			LOG.info("Unable to delete. Notebook with id {} not found", id);
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		}
+		noteBookSvc.findById(id);
 		noteBookSvc.deleteById(id);
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);// not ok....vgambhir
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 
 	}
 

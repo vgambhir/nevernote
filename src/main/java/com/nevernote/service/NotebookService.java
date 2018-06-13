@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.nevernote.domain.Note;
 import com.nevernote.domain.Notebook;
+import com.nevernote.exception.ResourceNotFoundException;
 import com.nevernote.model.NoteDetail;
 import com.nevernote.model.NoteForm;
 import com.nevernote.model.NotebookDetail;
@@ -45,7 +46,7 @@ public class NotebookService {
 
 		if (book == null) {
 			LOG.info("Notebook with id {} not found", notebookId);
-			return null;
+			throw new ResourceNotFoundException("No Notebook found with id = " + notebookId);
 		}
 		return new NotebookDetail(book);
 
@@ -60,7 +61,7 @@ public class NotebookService {
 		Notebook book = dataStore.findbyId(notebookId);
 		if (book == null) {
 			LOG.info("Notebook with id {} not found", notebookId);
-			return null;
+			throw new ResourceNotFoundException("No Notebook found with id = " + notebookId);
 		}
 		long currTime = System.currentTimeMillis();
 		Note note = new Note(idGenerator.getNext(), noteForm.getTitle(), noteForm.getBody(), noteForm.getTags(),
@@ -74,13 +75,13 @@ public class NotebookService {
 		Notebook book = dataStore.findbyId(notebookId);
 		if (book == null) {
 			LOG.info("Notebook with id {} not found", notebookId);
-			return null;
+			throw new ResourceNotFoundException("No Notebook found with id = " + notebookId);
 		}
 
 		Note note = book.getNoteById(noteId);
 		if (note == null) {
 			LOG.info("Note with id {} not found", noteId);
-			return null;
+			throw new ResourceNotFoundException("No Note found with id = " + noteId);
 		}
 
 		return new NoteDetail(note);
@@ -91,12 +92,12 @@ public class NotebookService {
 		Notebook book = dataStore.findbyId(notebookId);
 		if (book == null) {
 			LOG.info("Notebook with id {} not found", notebookId);
-			return null;
+			throw new ResourceNotFoundException("No Notebook found with id = " + notebookId);
 		}
 		Note note = book.getNoteById(noteId);
 		if (note == null) {
 			LOG.info("Note with id {} not found", noteId);
-			return null;
+			throw new ResourceNotFoundException("No Note found with id = " + noteId);
 		}
 		book.deleteNote(noteId);
 		return new NoteDetail(note);
@@ -117,12 +118,12 @@ public class NotebookService {
 		Notebook book = dataStore.findbyId(notebookId);
 		if (book == null) {
 			LOG.info("Notebook with id {} not found", notebookId);
-			return null;
+			throw new ResourceNotFoundException("No Notebook found with id = " + notebookId);
 		}
 		Note currNote = book.getNoteById(noteId);
 		if (currNote == null) {
 			LOG.info("Note with id {} not found", noteId);
-			return null;
+			throw new ResourceNotFoundException("No Note found with id = " + noteId);
 		}
 		Note newNote = new Note(noteId, noteForm.getTitle(), noteForm.getBody(), noteForm.getTags(),
 				currNote.getCreatedDate(), System.currentTimeMillis());
@@ -135,7 +136,7 @@ public class NotebookService {
 		Notebook book = dataStore.findbyId(notebookId);
 		if (book == null) {
 			LOG.info("Notebook with id {} not found", notebookId);
-			return null;
+			throw new ResourceNotFoundException("No Notebook found with id = " + notebookId);
 		}
 
 		Set<Note> noteSet = book.findNotesWithTag(tag);

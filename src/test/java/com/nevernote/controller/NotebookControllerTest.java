@@ -1,6 +1,6 @@
 package com.nevernote.controller;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.hamcrest.core.IsNull;
@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.nevernote.exception.ResourceNotFoundException;
 import com.nevernote.model.NotebookDetail;
 import com.nevernote.model.NotebookForm;
 import com.nevernote.service.NotebookService;
@@ -64,14 +65,32 @@ public class NotebookControllerTest {
 		assertThat(resp.getNotes().size(), is(0));
 	}
 
-	@Test
+	@Test(expected = ResourceNotFoundException.class)	
 	public void deleteNoteBookWithId() {
 		String name = "NB-4";
 		NotebookDetail nDetail = noteBookSvc.create(new NotebookForm(name));
 		Long id = nDetail.getId();
 		ResponseEntity<Void> responseEntity = restTemplate.exchange(NOTEBOOK_API + "/{id}", HttpMethod.DELETE,null,Void.class,id);
 		assertThat(responseEntity.getStatusCode(), is(HttpStatus.NO_CONTENT));
-		assertThat(noteBookSvc.findById(id),IsNull.nullValue());
+		noteBookSvc.findById(id);
+		
+	}
+	@Test(expected = ResourceNotFoundException.class)	
+	public void deleteNoteBookWithNonExistentId() {
+		Long id = 12L;
+		ResponseEntity<Void> responseEntity = restTemplate.exchange(NOTEBOOK_API + "/{id}", HttpMethod.DELETE,null,Void.class,id);
+		assertThat(responseEntity.getStatusCode(), is(HttpStatus.NOT_FOUND));
+		noteBookSvc.findById(id);
+		
+	}
+	@Test
+	public void getNoteBookWithNonExistentId() {
+		Long id = 12L;
+		ResponseEntity<NotebookDetail> responseEntity = restTemplate.getForEntity(NOTEBOOK_API + "/{id}",
+				NotebookDetail.class,id);
+		assertThat(responseEntity.getStatusCode(), is(HttpStatus.NOT_FOUND));
+		
+		
 		
 	}
 

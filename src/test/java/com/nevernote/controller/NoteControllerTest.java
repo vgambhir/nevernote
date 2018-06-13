@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.hasItems;
 
 import java.util.Arrays;
 
-import org.hamcrest.core.IsNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -21,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.nevernote.domain.Note;
+import com.nevernote.exception.ResourceNotFoundException;
 import com.nevernote.model.NoteDetail;
 import com.nevernote.model.NoteForm;
 import com.nevernote.model.NotebookDetail;
@@ -76,7 +76,7 @@ public class NoteControllerTest {
 
 	}
 
-	@Test
+	@Test(expected=ResourceNotFoundException.class)
 	public void deletNoteWithId() {
 		String name = "NB-5";
 		NotebookDetail bDetail = noteBookSvc.create(new NotebookForm(name));
@@ -89,7 +89,7 @@ public class NoteControllerTest {
 				HttpMethod.DELETE, null, Void.class, bDetail.getId(), nDetail.getId());
 		LOG.info("Response : {}", responseEntity);
 		assertThat(responseEntity.getStatusCode(), is(HttpStatus.NO_CONTENT));
-		assertThat(noteBookSvc.findNoteById(bDetail.getId(), nDetail.getId()), IsNull.nullValue());
+		noteBookSvc.findNoteById(bDetail.getId(), nDetail.getId());
 
 	}
 
