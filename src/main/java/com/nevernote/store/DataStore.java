@@ -1,4 +1,4 @@
-package com.nevernote.data;
+package com.nevernote.store;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,10 +12,8 @@ public class DataStore {
 
 	private Map<Long, Notebook> bookMap = new HashMap<Long, Notebook>();
 
-	public Notebook save(Notebook book) {
+	public void save(Notebook book) {
 		bookMap.put(book.getId(), book);
-		return findbyId(book.getId());
-
 	}
 
 	public Notebook findbyId(Long id) {

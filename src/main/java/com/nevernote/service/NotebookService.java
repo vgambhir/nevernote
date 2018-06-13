@@ -8,28 +8,28 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nevernote.data.DataStore;
 import com.nevernote.domain.Note;
 import com.nevernote.domain.Notebook;
 import com.nevernote.model.NoteDetail;
 import com.nevernote.model.NoteForm;
 import com.nevernote.model.NotebookDetail;
 import com.nevernote.model.NotebookForm;
+import com.nevernote.store.DataStore;
 
 @Service
 public class NotebookService {
 
 	@Autowired
-	private CounterGen gen;
+	private IdGenerator idGenerator;
 
 	@Autowired
 	private DataStore dataStore;
 	private final Logger LOG = LoggerFactory.getLogger(NotebookService.class);
 
 	public NotebookDetail create(NotebookForm bookForm) {
-		Notebook book = new Notebook(gen.getNext(), bookForm.getName());
-		book = dataStore.save(book);
-		return new NotebookDetail(book.getId(), book.getName(), book.getNotes());
+		Notebook book = new Notebook(idGenerator.getNext(), bookForm.getName());
+		dataStore.save(book);
+		return new NotebookDetail(book);
 
 	}
 
@@ -41,7 +41,7 @@ public class NotebookService {
 			LOG.info("Notebook with id {} not found", notebookId);
 			return null;
 		}
-		return new NotebookDetail(book.getId(), book.getName(), book.getNotes());
+		return new NotebookDetail(book);
 
 	}
 
@@ -58,11 +58,10 @@ public class NotebookService {
 			return null;
 		}
 		long currTime = System.currentTimeMillis();
-		Note note = new Note(gen.getNext(), noteForm.getTitle(), noteForm.getBody(), noteForm.getTags(), currTime,
-				currTime);
+		Note note = new Note(idGenerator.getNext(), noteForm.getTitle(), noteForm.getBody(), noteForm.getTags(),
+				currTime, currTime);
 		book.addNote(note);
-		return new NoteDetail(note.getId(), note.getTitle(), note.getBody(), note.getTags(), note.getCreatedDate(),
-				note.getLastModifiedDate());
+		return new NoteDetail(note);
 	}
 
 	public NoteDetail findNoteById(Long notebookId, Long noteId) {
@@ -79,8 +78,7 @@ public class NotebookService {
 			return null;
 		}
 
-		return new NoteDetail(note.getId(), note.getTitle(), note.getBody(), note.getTags(), note.getCreatedDate(),
-				note.getLastModifiedDate());
+		return new NoteDetail(note);
 	}
 
 	public NoteDetail deleteNoteById(Long notebookId, Long noteId) {
@@ -97,10 +95,19 @@ public class NotebookService {
 		}
 		book.deleteNote(noteId);
 
-		return new NoteDetail(note.getId(), note.getTitle(), note.getBody(), note.getTags(), note.getCreatedDate(),
-				note.getLastModifiedDate());
+		return new NoteDetail(note);
 	}
 
+	/**
+	 * Update is being carried out by delete+create operations. Note might have
+	 * multiple attributes. Instead of figuring out the changes and updating
+	 * existing note, this is a simpler approach
+	 * 
+	 * @param notebookId
+	 * @param noteId
+	 * @param noteForm
+	 * @return
+	 */
 	public NoteDetail updateNote(Long notebookId, Long noteId, NoteForm noteForm) {
 
 		Notebook book = dataStore.findbyId(notebookId);
@@ -117,8 +124,7 @@ public class NotebookService {
 				currNote.getCreatedDate(), System.currentTimeMillis());
 		book.updateNote(newNote);
 
-		return new NoteDetail(newNote.getId(), newNote.getTitle(), newNote.getBody(), newNote.getTags(),
-				newNote.getCreatedDate(), newNote.getLastModifiedDate());
+		return new NoteDetail(newNote);
 	}
 
 	public List<NoteDetail> findNotesWith(Long notebookId, String tag) {
@@ -141,8 +147,7 @@ public class NotebookService {
 	private List<NoteDetail> mapToNoteDetail(List<Note> noteList) {
 		List<NoteDetail> nDetailList = new ArrayList<NoteDetail>();
 		for (Note n : noteList) {
-			nDetailList.add(new NoteDetail(n.getId(), n.getTitle(), n.getBody(), n.getTags(), n.getCreatedDate(),
-					n.getLastModifiedDate()));
+			nDetailList.add(new NoteDetail(n));
 		}
 		return nDetailList;
 

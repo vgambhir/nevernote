@@ -1,5 +1,7 @@
 package com.nevernote.domain;
 
+import java.util.Objects;
+
 public class Note {
 
 	private Long id;
@@ -9,7 +11,15 @@ public class Note {
 	private Long createdDate;
 	private Long lastModifiedDate;
 
-	
+	public Note(Long id, String title, String body, String[] tags, Long createdDate, Long lastModifiedDate) {
+		this.id = id;
+		this.title = title;
+		this.body = body;
+		this.tags = tags;
+		this.createdDate = createdDate;
+		this.lastModifiedDate = lastModifiedDate;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -60,39 +70,19 @@ public class Note {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+		return Objects.hash(this.getId());
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (obj == this) {
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Note other = (Note) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+		}
+		if (obj instanceof Note) {
+			Note other = (Note) obj;
+			return Objects.equals(this.getId(), other.getId());
+		}
+		return false;
 	}
-
-	public Note(Long id, String title, String body, String[] tags, Long createdDate, Long lastModifiedDate) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.body = body;
-		this.tags = tags;
-		this.createdDate = createdDate;
-		this.lastModifiedDate = lastModifiedDate;
-	}
-	
-	
 
 }

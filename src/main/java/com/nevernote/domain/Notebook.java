@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Notebook {
 
@@ -14,7 +15,6 @@ public class Notebook {
 	private Map<String, List<Note>> tagMap = new HashMap<String, List<Note>>();
 
 	public Notebook(Long id, String name) {
-		super();
 		this.id = id;
 		this.name = name;
 	}
@@ -50,14 +50,11 @@ public class Notebook {
 			}
 
 			list.add(note);
-
 		}
-
 	}
 
 	public List<Note> findNotesWithTag(String tag) {
 		return tagMap.get(tag.trim().toLowerCase());
-
 	}
 
 	public void updateNote(Note note) {
@@ -66,9 +63,7 @@ public class Notebook {
 	}
 
 	public List<Note> searchNotesByTag(String tag) {
-
 		return tagMap.get(tag);
-
 	}
 
 	public List<Note> getNotes() {
@@ -78,7 +73,7 @@ public class Notebook {
 
 	public void deleteNote(Long id) {
 		Note delNote = noteMap.remove(id);
-		// remove from list of associated tags
+		// remove from tag to notes map
 		removeFromMappedTag(delNote);
 
 	}
@@ -87,12 +82,9 @@ public class Notebook {
 		String[] tagArr = note.getTags();
 		if (tagArr != null) {
 			for (String tag : tagArr) {
-				List<Note> noteList = tagMap.get(tag);
-				noteList.remove(note);
+				tagMap.get(tag).remove(note);
 			}
-
 		}
-
 	}
 
 	public Note getNoteById(Long noteId) {
@@ -100,4 +92,20 @@ public class Notebook {
 
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.getId());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) {
+			return true;
+		}
+		if (obj instanceof Notebook) {
+			Notebook other = (Notebook) obj;
+			return Objects.equals(this.getId(), other.getId());
+		}
+		return false;
+	}
 }

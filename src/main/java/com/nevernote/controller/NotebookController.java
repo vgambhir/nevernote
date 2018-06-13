@@ -19,7 +19,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.nevernote.model.NotebookDetail;
 import com.nevernote.model.NotebookForm;
 import com.nevernote.service.NotebookService;
-
+/**
+ * Controller to handle notebooks resource
+ * @author vandana
+ *
+ */
 @RestController
 @RequestMapping("notebooks")
 public class NotebookController {
