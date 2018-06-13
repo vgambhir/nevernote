@@ -18,20 +18,12 @@ Design and implement a "Nevernote" REST APIs that can be used to save, retrieve 
 - maven (apache-maven-3.5.3)
 
 ### Notes:
-- Application is configured to run on port 8080. To change the port at runtime using
+- Application is configured to run on port 8080. To change the port at runtime use the following command or modify application.properties <server.port>
 ```
 java -jar nevernote-0.0.1-SNAPSHOT.jar --server.port=<portNumber>
 ```
-or Modification application.properties <server.port>
 
-API documentation
-with error codes
-
-junit if time
-
-date time stamp format
-
-### Build REST service:
+### Build REST service Application:
 Using maven wrapper to build, run tests and start application
 A. Build application
 ```
@@ -48,3 +40,10 @@ java -jar nevernote-0.0.1-SNAPSHOT.jar
 
 Good to have
 - versioning
+
+API documentation
+with error codes
+
+junit if time
+
+date time stamp format
