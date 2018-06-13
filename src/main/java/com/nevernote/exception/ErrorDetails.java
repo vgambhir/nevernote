@@ -10,11 +10,11 @@ import lombok.Data;
 @Data
 public class ErrorDetails {
 	public static DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-
 	public String eventDate;
 	private String message;
 	private String details;
 
+	public ErrorDetails(){}
 	public ErrorDetails(String message, String details) {
 		this.message = message;
 		this.details = details;

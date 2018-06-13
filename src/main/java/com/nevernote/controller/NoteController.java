@@ -38,7 +38,6 @@ public class NoteController {
 			@RequestBody @NotNull NoteForm noteForm, UriComponentsBuilder ucBuilder) {
 		LOG.info("Creating new note: {}", noteForm);
 
-		// find notebook exists or not find by notebook id
 		NoteDetail noteDetail = noteBookSvc.addNote(notebookId, noteForm);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/notebook/{notebookId}/notes/{id}")

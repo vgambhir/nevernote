@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.nevernote.exception.ErrorDetails;
 import com.nevernote.exception.ResourceNotFoundException;
 import com.nevernote.model.NotebookDetail;
 import com.nevernote.model.NotebookForm;
@@ -86,9 +87,11 @@ public class NotebookControllerTest {
 	@Test
 	public void getNoteBookWithNonExistentId() {
 		Long id = 12L;
-		ResponseEntity<NotebookDetail> responseEntity = restTemplate.getForEntity(NOTEBOOK_API + "/{id}",
-				NotebookDetail.class,id);
+		ResponseEntity<ErrorDetails> responseEntity = restTemplate.getForEntity(NOTEBOOK_API + "/{id}",
+				ErrorDetails.class,id);
+		ErrorDetails resp = responseEntity.getBody();
 		assertThat(responseEntity.getStatusCode(), is(HttpStatus.NOT_FOUND));
+		assertThat(resp.getMessage(), is("No Notebook found with id = "+id));
 		
 		
 		

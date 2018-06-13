@@ -9,7 +9,16 @@ Assumptions
 4. createdDate and lastModified are captured as long miilis
 
 
+API documentation
+with error codes
 
+junit if time
+
+date time stamp format
+
+test out exceptions
+
+Push code
 
 
 
