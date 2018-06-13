@@ -44,8 +44,8 @@ public class NoteController {
 		}
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(
-				ucBuilder.path("/notebook/" + notebookId + "/notes/{id}").buildAndExpand(noteDetail.getId()).toUri());
+		headers.setLocation(ucBuilder.path("/notebook/{notebookId}/notes/{id}")
+				.buildAndExpand(notebookId, noteDetail.getId()).toUri());
 		return new ResponseEntity<NoteDetail>(noteDetail, headers, HttpStatus.CREATED);
 	}
 

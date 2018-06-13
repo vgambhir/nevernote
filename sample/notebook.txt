@@ -3,7 +3,7 @@ curl -X POST http://localhost:8080/apis/notebooks -d {"name":"Sai"}
 
 Create
 =========
-curl -H "Content-Type: application/json" -X POST http://localhost:8080/apis/notebooks -d '{"name":"Sai1"}'
+curl -i -H "Content-Type: application/json" -X POST http://localhost:8080/apis/notebooks -d '{"name":"Sai1"}'
 
 Create
 ===========
