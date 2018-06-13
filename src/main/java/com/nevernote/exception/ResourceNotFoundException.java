@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 public class ResourceNotFoundException extends RuntimeException {
 	
 	private static final long serialVersionUID = 1L;
-	private ErrorDetails resp;
+	private ErrorDetail resp;
 
 	public ResourceNotFoundException(final String message) {
 		super(message);

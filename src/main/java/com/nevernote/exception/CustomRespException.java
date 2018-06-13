@@ -12,8 +12,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestController
 public class CustomRespException extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(ResourceNotFoundException.class)
-	public ResponseEntity<ErrorDetails> handleApiException(ResourceNotFoundException ex, WebRequest request) {
-		ErrorDetails errorDetails = new ErrorDetails(ex.getMessage(), request.getDescription(false));
+	public ResponseEntity<ErrorDetail> handleApiException(ResourceNotFoundException ex, WebRequest request) {
+		ErrorDetail errorDetails = new ErrorDetail(ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 
 	}

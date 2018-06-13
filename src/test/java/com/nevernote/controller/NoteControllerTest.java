@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.nevernote.domain.Note;
+import com.nevernote.exception.ErrorDetail;
 import com.nevernote.exception.ResourceNotFoundException;
 import com.nevernote.model.NoteDetail;
 import com.nevernote.model.NoteForm;
@@ -76,7 +77,7 @@ public class NoteControllerTest {
 
 	}
 
-	@Test(expected=ResourceNotFoundException.class)
+	@Test(expected = ResourceNotFoundException.class)
 	public void deletNoteWithId() {
 		String name = "NB-5";
 		NotebookDetail bDetail = noteBookSvc.create(new NotebookForm(name));
@@ -160,6 +161,35 @@ public class NoteControllerTest {
 		assertThat(resp.getNotes().size(), is(2));
 		assertThat(resp.getNotes().contains(new Note(nDetail_1.getId(), null, null, null, null, null)), is(true));
 		assertThat(resp.getNotes().contains(new Note(nDetail_2.getId(), null, null, null, null, null)), is(true));
+	}
+
+	@Test
+	public void getNoteWithNonExistentId() {
+		String name = "NB-4";
+		String noteId = "4";
+		NotebookDetail bDetail = noteBookSvc.create(new NotebookForm(name));
+		ResponseEntity<ErrorDetail> responseEntity = restTemplate
+				.getForEntity(NOTEBOOK_API + "/{bId}" + NOTE_API + "/{nId}", ErrorDetail.class, bDetail.getId(), 4);
+		LOG.info("Response : {}", responseEntity);
+		ErrorDetail resp = responseEntity.getBody();
+		assertThat(responseEntity.getStatusCode(), is(HttpStatus.NOT_FOUND));
+		assertThat(resp.getMessage(), is("No Note found with id = " + noteId));
+
+	}
+
+	@Test
+	public void updateNoteWithNonExistentId() {
+		String name = "NB-6";
+		String noteId = "4";
+		NotebookDetail bDetail = noteBookSvc.create(new NotebookForm(name));
+		NoteForm updNote = new NoteForm("title-2", "body-2", Arrays.asList("t9", "t10"));
+		ResponseEntity<ErrorDetail> responseEntity = restTemplate.postForEntity(
+				NOTEBOOK_API + "/{bId}" + NOTE_API + "/{nId}", updNote, ErrorDetail.class, bDetail.getId(), noteId);
+		LOG.info("Response : {}", responseEntity);
+		ErrorDetail resp = responseEntity.getBody();
+		assertThat(responseEntity.getStatusCode(), is(HttpStatus.NOT_FOUND));
+		assertThat(resp.getMessage(), is("No Note found with id = " + noteId));
+
 	}
 
 }
