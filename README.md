@@ -38,6 +38,25 @@ C. Run application using jar
 java -jar nevernote-0.0.1-SNAPSHOT.jar
 ```
 
+### REST API overview
+Context path = /apis
+
+| Uri | Http Method | Request| Response| Description|
+| --- | ----------- | ------ | ------- | ---------- |
+| /notebooks/{bookId} | GET | | 200, [{'id':1','name':'Book-1'},notes[]]  | Get notebook by ID |                         
+| /notebooks | POST | {'title':'test title','content':'test content'} | 201| Create a new notebook |
+| /notebooks/{bookId} | DELETE |  | 204| Delete a notebook by ID |
+| /notebooks/{bookId}/notes | POST |  | 201| Add a note to a certain notebook |
+| /notebooks/{bookId}/notes/{noteId} | POST |  | 200| Update note by ID in a certain notebook|
+| /notebooks/{bookId}/notes/{noteId} | GET |  | 200| Get a note by ID in a certain notebook|
+| /notebooks/{bookId}/notes/{noteId} | DELETE |  | 204| Delete a note by ID in a certain notebook |
+| /notebooks/{bookId}/notes?tag={tag} | GET |  | 200| Filter notes in a certain notebook by given tag |
+
+
+
+
+
+
 Good to have
 - versioning
 
