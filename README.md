@@ -53,17 +53,18 @@ java -jar nevernote-0.0.1-SNAPSHOT.jar
 | /notebooks/{bookId}/notes/{noteId} | DELETE |  | 204| Delete a note by ID in a certain notebook |
 | /notebooks/{bookId}/notes?tag={tag} | GET |  | 200, {"id":2,"name":"Book-1","notes":[{"id":3,"title":"n-title","body":"This is a test note","tags":["note","test"],"createdDate":1528911968624,"lastModifiedDate":1528911968624}]}| Filter notes in a certain notebook by given tag |
 
+### Exceptions
+When getting try to fetch a non-existing resource 
+
+Request:
+GET http://localhost:8080/apis/notebooks/4
+
+Response:
+HTTP/1.1 404 
+{"eventDate":"06/13/2018 13:07:29","message":"No Notebook found with id = 4","details":"uri=/apis/notebooks/4"}
 
 
-
-
-
-Good to have
-- versioning
-
-API documentation
-with error codes
-
-junit if time
-
-date time stamp format
+### Good to have:
+- APIs versioning
+- Format timestamp to date
+- More unit tests
