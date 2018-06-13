@@ -1,5 +1,7 @@
 package com.nevernote.controller;
 
+import javax.validation.constraints.NotNull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,7 @@ public class NotebookController {
 	private final Logger LOG = LoggerFactory.getLogger(NotebookController.class);
 
 	@PostMapping(produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<NotebookDetail> createNoteBook(@RequestBody NotebookForm notebook,
+	public ResponseEntity<NotebookDetail> createNoteBook(@RequestBody @NotNull NotebookForm notebook,
 			UriComponentsBuilder ucBuilder) {
 		LOG.info("Creating new notebook: {}", notebook);
 

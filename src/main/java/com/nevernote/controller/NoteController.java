@@ -1,5 +1,7 @@
 package com.nevernote.controller;
 
+import javax.validation.constraints.NotNull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,7 @@ public class NoteController {
 	@PostMapping(value = "/{notebookId}/notes", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<NoteDetail> createNote(@PathVariable("notebookId") Long notebookId,
-			@RequestBody NoteForm noteForm, UriComponentsBuilder ucBuilder) {
+			@RequestBody @NotNull NoteForm noteForm, UriComponentsBuilder ucBuilder) {
 		LOG.info("Creating new note: {}", noteForm);
 
 		// find notebook exists or not find by notebook id
@@ -79,7 +81,7 @@ public class NoteController {
 	@PostMapping(value = "/{notebookId}/notes/{noteId}", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<NoteDetail> updateNote(@PathVariable("notebookId") Long notebookId,
-			@PathVariable("noteId") Long noteId, @RequestBody NoteForm noteForm) {
+			@PathVariable("noteId") Long noteId, @RequestBody @NotNull NoteForm noteForm) {
 		NoteDetail ndto = noteBookSvc.updateNote(notebookId, noteId, noteForm);
 		if (ndto == null) {
 			LOG.info("Unable to delete. Note with id {} not found", noteId);
@@ -95,7 +97,7 @@ public class NoteController {
 
 		NotebookDetail notebookDetail = noteBookSvc.findNotesWith(notebookId, tag);
 		if (notebookDetail == null) {
-			LOG.info("Unable to get Notebook with id {}    ", notebookId);
+			LOG.info("Unable to get Notebook with id {}", notebookId);
 			return new ResponseEntity<NotebookDetail>(HttpStatus.NOT_FOUND);
 		} else
 			return new ResponseEntity<NotebookDetail>(notebookDetail, HttpStatus.OK);
