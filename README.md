@@ -43,14 +43,14 @@ Context path = /apis
 
 | Uri | Http Method | Request| Response| Description|
 | --- | ----------- | ------ | ------- | ---------- |
-| /notebooks/{bookId} | GET | | 200, [{'id':1','name':'Book-1'},notes[]]  | Get notebook by ID |                         
-| /notebooks | POST | {'title':'test title','content':'test content'} | 201| Create a new notebook |
+| /notebooks/{bookId} | GET | | 200, {"id":1,"name":"Book-1","notes":[]}  | Get notebook by ID |                         
+| /notebooks | POST | {"name":"Book-1"} | 201,{"id":1,"name":"Book-1","notes":[]}| Create a new notebook |
 | /notebooks/{bookId} | DELETE |  | 204| Delete a notebook by ID |
-| /notebooks/{bookId}/notes | POST |  | 201| Add a note to a certain notebook |
-| /notebooks/{bookId}/notes/{noteId} | POST |  | 200| Update note by ID in a certain notebook|
-| /notebooks/{bookId}/notes/{noteId} | GET |  | 200| Get a note by ID in a certain notebook|
+| /notebooks/{bookId}/notes | POST |{"title":"n-title","body":"This is a test note","tags":["note","test"]}  | 201, {"id":3,"title":"n-title","body":"This is a test note","tags":["note","test"],"createDate":1528911968624,"lastModifiedDate":1528911968624}| Add a note to a certain notebook |
+| /notebooks/{bookId}/notes/{noteId} | POST |{"title":"my-title","body":"This is a test note","tags":["note","test"]}  | 200, , {"id":3,"title":"my-title","body":"This is a test note","tags":["note","test"],"createDate":1528911968624,"lastModifiedDate":1528911968900}| Update note by ID in a certain notebook|
+| /notebooks/{bookId}/notes/{noteId} | GET |  | 200,{"title":"n-title","body":"This is a test note","tags":["note","test"]}  | 201, {"id":3,"title":"n-title","body":"This is a test note","tags":["note","test"],"createDate":1528911968624,"lastModifiedDate":1528911968624}| Get a note by ID in a certain notebook|
 | /notebooks/{bookId}/notes/{noteId} | DELETE |  | 204| Delete a note by ID in a certain notebook |
-| /notebooks/{bookId}/notes?tag={tag} | GET |  | 200| Filter notes in a certain notebook by given tag |
+| /notebooks/{bookId}/notes?tag={tag} | GET |  | 200,{"id":2,"name":"Book-1","notes":[{"id":3,"title":"n-title","body":"This is a test note","tags":["note","test"],"createdDate":1528911968624,"lastModifiedDate":1528911968624}]}| Filter notes in a certain notebook by given tag |
 
 
 
