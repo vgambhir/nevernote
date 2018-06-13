@@ -15,7 +15,11 @@ import com.nevernote.model.NoteForm;
 import com.nevernote.model.NotebookDetail;
 import com.nevernote.model.NotebookForm;
 import com.nevernote.store.DataStore;
-
+/**
+ * Provides service layer 
+ * @author vandana
+ *
+ */
 @Service
 public class NotebookService {
 
