@@ -69,3 +69,5 @@ HTTP/1.1 404
 - APIs versioning
 - Format timestamp to date
 - More unit tests
+- Use frameworks like Swagger, REST Docs to auto generate REST APIs documentation
+- Use ModelMapper to convert internal entities to Data Transfer Objects (DTOs)
