@@ -38,7 +38,7 @@ C. Run application using jar
 java -jar nevernote-0.0.1-SNAPSHOT.jar
 ```
 
-### REST API overview
+### REST API overview:
 - Context path = /apis
 - Resource creation(POST) populates Location in Header with resource ids (e.g. Location: http://localhost:8080/apis/notebook/{bookId}/notes/{noteId})
 
@@ -53,7 +53,7 @@ java -jar nevernote-0.0.1-SNAPSHOT.jar
 | /notebooks/{bookId}/notes/{noteId} | DELETE |  | 204| Delete a note by ID in a certain notebook |
 | /notebooks/{bookId}/notes?tag={tag} | GET |  | 200, {"id":2,"name":"Book-1","notes":[{"id":3,"title":"n-title","body":"This is a test note","tags":["note","test"],"createdDate":1528911968624,"lastModifiedDate":1528911968624}]}| Filter notes in a certain notebook by given tag |
 
-### Exceptions
+### Exceptions:
 When getting try to fetch a non-existing resource 
 
 - Request:
