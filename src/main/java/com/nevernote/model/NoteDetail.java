@@ -12,6 +12,8 @@ public class NoteDetail {
 		this.createDate = createDate;
 		this.lastModifiedDate = lastModifiedDate;
 	}
+	
+	public NoteDetail() {}
 	private String title;
 	private String body;
 	private String[] tags;

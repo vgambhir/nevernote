@@ -63,8 +63,7 @@ public class NoteController {
 
 	}
 
-	@DeleteMapping(value = "/{notebookId}/notes/{noteId}", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@DeleteMapping(value = "/{notebookId}/notes/{noteId}")
 	public ResponseEntity<Void> deleteNoteBook(@PathVariable("notebookId") Long notebookId,
 			@PathVariable("noteId") Long noteId) {
 
