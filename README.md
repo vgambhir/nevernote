@@ -25,6 +25,7 @@ java -jar nevernote-0.0.1-SNAPSHOT.jar --server.port=<portNumber>
 
 ### Build REST service Application:
 Using maven wrapper to build, run tests and start application
+
 A. Build application
 ```
 $ ./mvnw clean install
